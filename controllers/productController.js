@@ -1,5 +1,6 @@
 //const order = require("../models/order");
 //const orderedProduct = require("../models/orderedProduct");
+const QueryStringBuilder = require("../utilis/QueryStringBuilder");
 const Model = require("../models");
 const test = require("../test");
 const ProductModel = Model.Product;
@@ -14,11 +15,9 @@ exports.createProduct = catchAsync(async (req, res, next) => {
          userId : req.body.userId
         };
         const product = await  ProductModel.create(productData);
-        const fieldsToFilter = ["name","price","image","methodOfPayment"];
-            const filteredUser = test.FilterOneObject(product, fieldsToFilter);
            // console.log(filteredUser);
             res.status(202).json({
-                    product : filteredUser,
+                    data : productData,
                     status:"success"
                 })
  });
@@ -30,33 +29,34 @@ exports.getProduct = catchAsync(async (req, res, next) => {
                 id : productId 
             }
         });
-        const fieldsToFilter = ["name","price","image"];
-            const filteredUser = test.FilterOneObject(product, fieldsToFilter);
         if (product) {
                 res.status(202).json({
-                    productInfo : filteredUser,
+                    data : filteredUser,
                     status:"success"
                 })
         } else {
             res.status(404).json({
                 status:"failed",
-                message:"no user found with this id"
+                message:"No Product found with this id"
             });
         }
  });
- exports.getAllProducts = catchAsync(async (req, res, next) => {
-        const product = await  ProductModel.findAll();
-        const fieldsToFilter = ["id","name","price","image"];
-            const filteredUser = test.FilterMultipleObjects(product, fieldsToFilter);
+ exports.getAllProducts = catchAsync(async (req, res, next) => {  
+    const queryStringBulder = new QueryStringBuilder(req.query).paginate();
+    queryStringResult = queryStringBulder.result;
+    console.log(queryStringResult)
+    const product = await  ProductModel.findAll({limit:queryStringResult.limit, offset:queryStringResult.offset});
+ 
+    
         if (product) {
                 res.status(202).json({
-                    productInfo : filteredUser,
+                    data : product,
                     status:"success"
                 })
         } else {
             res.status(404).json({
                 status:"failed",
-                message:"no user found with this id"
+                message:"No Products Are Avialable"
             });
         }
  });

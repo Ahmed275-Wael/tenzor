@@ -31,7 +31,7 @@ exports.register = catchAsync(async (req,res,next) => {
      const token = authTools.generateToken(user) 
      res.cookie('jwt',token, { maxAge: 900000, httpOnly: true });
      res.status(200).json({
-            userInfo:filteredData,
+            data:filteredData,
             status:"sucess",
             token
         })
@@ -55,7 +55,7 @@ exports.logIn = catchAsync(async (req,res,next) => {
       res.status(202).json({
          status:"Sucess",
          message:"You Have Logged In",
-         user,
+         data:user,
          token
         
       })
@@ -81,7 +81,7 @@ exports.logIn = catchAsync(async (req,res,next) => {
 exports.protectRoute = catchAsync(async (req, res, next) => {
    const token =  req.cookies.jwt;
  
-   if (!token) return next(new AppError("Please Sign In"), 404);
+   if (!token) return next(new AppError("Please Sign In", 404));
    const tokenVeri = await authTools.tokenVerify(token); 
    if (!tokenVeri) return next(new AppError("Please Sign In Again", 404) );
    const user = await userModel.findOne({_id: tokenVeri.id});

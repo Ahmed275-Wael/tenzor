@@ -1,5 +1,6 @@
 //const order = require("../models/order");
 //const orderedProduct = require("../models/orderedProduct");
+const QueryStringBuilder = require("../utilis/QueryStringBuilder");
 const Model = require("../models");
 const test = require("../test");
 const orderModel = Model.order;
@@ -79,26 +80,22 @@ exports.getOrder = catchAsync(async (req, res, next) => {
         }
  });
  exports.getAllOrders = catchAsync(async (req, res, next) => {
-        const order = await  orderModel.findAll({
-            include : { 
-                model: Model.orderedProduct, 
-                required: true, 
-                include : {
-                     model: Model.Product, 
-                     required: true 
-                    }}
-        });
-            let orders =[];
-            const fields = ["name","price","image"];
-            for(let i = 0 ; i< order.length;i++){
-                 orders[i] = test.FilterOneObject(order[i]["orderedProducts"][0]["Product"], fields);
-                 orders[i]["orderDate"] = order[i]["orderDate"];
-            }
-
-
+        const response = [];
+        const queryStringBulder = new QueryStringBuilder(req.query).paginate();
+        queryStringResult = queryStringBulder.result;
+        console.log(queryStringResult)
+        const order = await orderModel.findAll({limit:queryStringResult.limit, offset:queryStringResult.offset});
+        for (let i = 0; i < order.length; i++) {
+        let orderedProductsData = await order[i].getOrderedProducts();
+              let ordereMetaData = {};
+              ordereMetaData.orderData = order[i].dataValues;
+              ordereMetaData.productDate = orderedProductsData;
+              response.push(ordereMetaData);
+        }
+ 
         if (order) {
                 res.status(202).json({
-                    orderInfo:orders,
+                    data:response ,
                     status:"success"
                 })
         } else {
@@ -130,7 +127,7 @@ exports.getOrder = catchAsync(async (req, res, next) => {
             }
         if (order) {
                 res.status(202).json({
-                    orderInfo:orders,
+                    data:orders,
                     status:"success"
                 })
         } else {

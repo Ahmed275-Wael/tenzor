@@ -10,10 +10,16 @@ exports.getUser = catchAsync(async (req, res, next) => {
     const userId = req.params.userId;
         const user = await  userModel.findOne({where : {id:userId}});
         if (user) {
-            const fieldsToFilter = ["email","firstName","lastName","gender","phoneNumber","image"];
-            const filteredUser = test.FilterOneObject(user, fieldsToFilter);
+            const filteredData = {
+                email:user.dataValues.email,
+                firstName:user.dataValues.firstName,
+                lastName:user.dataValues.lastName,
+                gender:user.dataValues.gender,
+                phoneNumber:user.dataValues.phoneNumber,
+                image:user.dataValues.image
+             };
                 res.status(202).json({
-                    userInfo:filteredUser,
+                    data:filteredData,
                     status:"success"
                 })
         } else {
