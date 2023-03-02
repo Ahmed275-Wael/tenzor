@@ -1,0 +1,36 @@
+.main-paginate {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 100px;
+  margin-bottom: 60px;
+}
+
+.nextprev-link-paginate,
+.link-paginate,
+.page-paginate {
+  background-color: transparent;
+
+  padding: 0;
+  margin: 0;
+}
+
+.link-paginate {
+  width: 25px;
+}
+
+.nextprev-link-paginate,
+.link-paginate {
+  text-align: center;
+  padding: 5px;
+  border: 1px solid blue;
+  color: red;
+  cursor: pointer;
+}
+.active-page {
+  color: white;
+  background-color: white;
+}
