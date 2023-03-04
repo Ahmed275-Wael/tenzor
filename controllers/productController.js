@@ -60,4 +60,14 @@ exports.getProduct = catchAsync(async (req, res, next) => {
             });
         }
  });
- 
+ exports.getProductsCount = catchAsync(async (req, res, next) => {
+
+    const productsCount = await  ProductModel.count({});
+    const data = {
+        count:productsCount
+    }
+    res.status(202).json({
+        data,
+        status:"success"
+    });
+ });
