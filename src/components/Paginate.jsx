@@ -5,8 +5,8 @@ import "./styles/paginate.css";
 export default function Paginate(props) {
   return (
     <ReactPaginate
-      previousLabel={"previous"}
-      nextLabel={"next"}
+      previousLabel={"<<"}
+      nextLabel={">>"}
       breakLabel={"..."}
       pageCount={15}
       marginPagesDisplayed={2}
@@ -15,9 +15,12 @@ export default function Paginate(props) {
       containerClassName={"main-paginate"}
       pageClassName={"page-paginate"}
       pageLinkClassName={"link-paginate"}
-      nextLinkClassName={"nextprev-link-paginate"}
-      previousLinkClassName={"nextprev-link-paginate"}
-      breakLinkClassName={"nextprev-link-paginate"}
+      nextClassName={"next-paginate"}
+      nextLinkClassName={"next-link-paginate"}
+      previousClassName={"prev-paginate"}
+      previousLinkClassName={"prev-link-paginate"}
+      breakClassName={"break-paginate"}
+      breakLinkClassName={"break-link-paginate"}
       activeClassName={"active-page"}
     />
   );
