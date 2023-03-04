@@ -8,12 +8,27 @@ export default function SignIn() {
     email: "",
     password: "",
   });
+
   function inputChange(event) {
     const { name, value } = event.target;
     setFormData((prevFormData) => {
       return { ...prevFormData, [name]: value };
     });
   }
+
+  async function submitSignin() {
+    // console.log(JSON.stringify(formData));
+    let result = await fetch("http://localhost:3006/api/v1/user", {
+      method: "post",
+      body: JSON.stringify(formData),
+      headers: {
+        "Content-x": "application/json",
+      },
+    });
+    result = await result.json();
+    console.log(result);
+  }
+
   return (
     <>
       <Navbar />
@@ -23,7 +38,7 @@ export default function SignIn() {
           <p>Sign up now and browse many phones</p>
           <Link to="/signup">Register</Link>
         </div>
-        <form className="signin-form" action="">
+        <div className="signin-form">
           <h1>Login to your account.</h1>
           <input
             onChange={inputChange}
@@ -39,8 +54,8 @@ export default function SignIn() {
             placeholder="PASSWORD"
             value={formData.password}
           />
-          <button>Login</button>
-        </form>
+          <button onClick={submitSignin}>Login</button>
+        </div>
       </div>
     </>
   );
