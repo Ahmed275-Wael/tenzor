@@ -1,15 +1,23 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import "./styles/navbar.css";
 
 export default function Navbar() {
   const [toggleAccount, setToggleAccount] = useState(false);
   const [toggleProfile, setToggleProfile] = useState(false);
+  let history = useHistory();
+
   function accClick() {
     setToggleAccount((prevState) => !prevState);
   }
   function profileClick() {
     setToggleProfile((prevState) => !prevState);
+  }
+
+  function logoutOnClick() {
+    localStorage.removeItem("user");
+    history.push("/");
+    window.location.reload();
   }
   return (
     <nav>
@@ -46,32 +54,39 @@ export default function Navbar() {
               </ul>
             </div>
           </li>
-          <li>
-            <a href="google.com">
-              Upload &nbsp;
-              <i className="fa-solid fa-arrow-up-from-bracket fa-sm"></i>
-            </a>
-          </li>
+          {localStorage.getItem("user") && (
+            <li>
+              <a href="google.com">
+                Upload &nbsp;
+                <i className="fa-solid fa-arrow-up-from-bracket fa-sm"></i>
+              </a>
+            </li>
+          )}
           <li>
             <Link to="/contact">Contact us</Link>
           </li>
         </ul>
       </div>
       <div className="bottom-nav">
-        <div className="profile">
-          <p onClick={profileClick}>
-            Hello, Mazen <i className="fa-solid fa-chevron-down fa-xs"></i>
-          </p>
-          <ul className={toggleProfile ? "toggle-on" : "toggle-off"}>
-            <li>
-              <Link to="/profile">Profile</Link>
-            </li>
-            <hr />
-            <li>
-              <Link to="">My Products</Link>
-            </li>
-          </ul>
-        </div>
+        {localStorage.getItem("user") && (
+          <div className="profile">
+            <p onClick={profileClick}>
+              Hello, {JSON.parse(localStorage.getItem("user")).firstName}{" "}
+              <i className="fa-solid fa-chevron-down fa-xs"></i>
+            </p>
+            <ul className={toggleProfile ? "toggle-on" : "toggle-off"}>
+              <li>
+                <Link to="/profile">Profile</Link>
+              </li>
+              <hr />
+              <li>
+                <Link onClick={logoutOnClick} to="">
+                  Logout
+                </Link>
+              </li>
+            </ul>
+          </div>
+        )}
         <form action="">
           <label htmlFor="search-bar">
             <i className="fa-solid fa-magnifying-glass"></i>

@@ -114,6 +114,7 @@ nav .bottom-nav form {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-left: auto;
 }
 nav .bottom-nav form i {
   padding: 0px 10px;

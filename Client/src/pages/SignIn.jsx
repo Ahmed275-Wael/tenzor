@@ -1,13 +1,24 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import { React, useState } from "react";
+import { Link, useHistory } from "react-router-dom";
 import "./page-style/signin.css";
 import Navbar from "../components/Navbar";
 
 export default function SignIn() {
-  const [formData, setFormData] = React.useState({
+  const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+  const history = useHistory();
+  //Error message display
+  const [statusError, setStatusError] = useState(false);
+
+  //// RegEx validations (yet to be implemented)
+  // const [emailErr, setEmailErr] = useState(false);
+  // const [passError, setPwdError] = useState(false);
+  // const validEmail = new RegExp(
+  //   "^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$"
+  // );
+  // const validPassword = new RegExp("^(?=.*?[A-Za-z])(?=.*?[0-9]).{6,}$");
 
   function inputChange(event) {
     const { name, value } = event.target;
@@ -16,17 +27,26 @@ export default function SignIn() {
     });
   }
 
-  async function submitSignin() {
-    // console.log(JSON.stringify(formData));
+  async function submitSignin(e) {
+    e.preventDefault();
     let result = await fetch("http://localhost:3006/api/v1/user", {
       method: "post",
       body: JSON.stringify(formData),
       headers: {
-        "Content-x": "application/json",
+        "Content-Type": "application/json; charset=utf-8",
       },
     });
     result = await result.json();
     console.log(result);
+    if (result.status === "Success") {
+      localStorage.setItem("user", JSON.stringify(result.data));
+      history.push("/");
+    } else if (result.status === "Failed") {
+      setStatusError((prevState) => !prevState);
+      setTimeout(() => {
+        setStatusError((prevState) => !prevState);
+      }, 3000);
+    }
   }
 
   return (
@@ -38,7 +58,7 @@ export default function SignIn() {
           <p>Sign up now and browse many phones</p>
           <Link to="/signup">Register</Link>
         </div>
-        <div className="signin-form">
+        <form className="signin-form">
           <h1>Login to your account.</h1>
           <input
             onChange={inputChange}
@@ -55,7 +75,10 @@ export default function SignIn() {
             value={formData.password}
           />
           <button onClick={submitSignin}>Login</button>
-        </div>
+          <p style={{ color: "red" }}>
+            {statusError && "Invalid email or password"}
+          </p>
+        </form>
       </div>
     </>
   );
