@@ -11,14 +11,37 @@ export default function SignUp() {
     phoneNumber: "",
     password: "",
     confirmPassword: "",
-    // gender: "",
   });
+
   function inputChange(event) {
     const { name, value } = event.target;
     setFormData((prevFormData) => {
       return { ...prevFormData, [name]: value };
     });
   }
+
+  async function submitSignup(e) {
+    e.preventDefault();
+    let result = await fetch("http://localhost:3006/api/v1/user/register", {
+      method: "post",
+      body: JSON.stringify({ ...formData, image: "culpa ea", gender: "male" }),
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+      },
+    });
+    result = await result.json();
+    console.log(result);
+    // if (result.status === "Success") {
+    //   localStorage.setItem("user", JSON.stringify(result.data));
+    //   history.push("/");
+    // } else if (result.status === "Failed") {
+    //   setStatusError((prevState) => !prevState);
+    //   setTimeout(() => {
+    //     setStatusError((prevState) => !prevState);
+    //   }, 3000);
+    // }
+  }
+
   return (
     <>
       <Navbar />
@@ -78,7 +101,7 @@ export default function SignUp() {
               <input type="radio" id="female" />
             </div>
           </div> */}
-          <button>Resgiter</button>
+          <button onClick={submitSignup}>Resgiter</button>
         </form>
         <div className="sign-in-img">
           <h1>Already registered?</h1>

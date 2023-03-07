@@ -7,6 +7,8 @@ import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import Contact from "./pages/Contact";
 import Profile from "./pages/Profile";
+import UploadProd from "./pages/UploadProd";
+import PageNotFound from "./pages/PageNotFound";
 
 function App() {
   return (
@@ -32,6 +34,12 @@ function App() {
         </Route>
         <Route exact path="/profile">
           <Profile />
+        </Route>
+        <Route exact path="/upload">
+          <UploadProd />
+        </Route>
+        <Route path="*">
+          <PageNotFound />
         </Route>
       </Switch>
     </Router>

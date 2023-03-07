@@ -56,10 +56,10 @@ export default function Navbar() {
           </li>
           {localStorage.getItem("user") && (
             <li>
-              <a href="google.com">
+              <Link to="/upload">
                 Upload &nbsp;
                 <i className="fa-solid fa-arrow-up-from-bracket fa-sm"></i>
-              </a>
+              </Link>
             </li>
           )}
           <li>
@@ -71,7 +71,13 @@ export default function Navbar() {
         {localStorage.getItem("user") && (
           <div className="profile">
             <p onClick={profileClick}>
-              Hello, {JSON.parse(localStorage.getItem("user")).firstName}{" "}
+              Hello,{" "}
+              {JSON.parse(localStorage.getItem("user"))
+                .firstName.charAt(0)
+                .toUpperCase() +
+                JSON.parse(localStorage.getItem("user")).firstName.slice(
+                  1
+                )}{" "}
               <i className="fa-solid fa-chevron-down fa-xs"></i>
             </p>
             <ul className={toggleProfile ? "toggle-on" : "toggle-off"}>
