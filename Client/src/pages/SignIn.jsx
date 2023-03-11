@@ -39,7 +39,7 @@ export default function SignIn() {
     result = await result.json();
     console.log(result);
     if (result.status === "Success") {
-      localStorage.setItem("user", JSON.stringify(result.data));
+      sessionStorage.setItem("user", JSON.stringify(result.data));
       history.push("/");
     } else if (result.status === "Failed") {
       setStatusError((prevState) => !prevState);

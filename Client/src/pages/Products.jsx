@@ -1,12 +1,15 @@
 import React from "react";
 import "./page-style/products.css";
+import "react-loading-skeleton/dist/skeleton.css";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Product from "../components/Product";
 import Paginate from "../components/Paginate";
+import ProductSkeleton from "../components/ProductSkeleton";
 
 export default function Products() {
   const [products, setProducts] = React.useState([]);
+  const [isLoading, setIsLoading] = React.useState(true);
   const totalNumberPerPage = 8;
 
   React.useEffect(() => {
@@ -16,6 +19,7 @@ export default function Products() {
       );
       const data = await res.json();
       setProducts(data.data);
+      setIsLoading(false);
     };
     getProducts();
   }, []);
@@ -50,8 +54,13 @@ export default function Products() {
         <h1>MOBILE PHONES</h1>
         <p>BROWSE DIFFERENT PHONES FROM DIFFERENT USERS</p>
       </div>
+      {isLoading && (
+        <div className="products">
+          <ProductSkeleton />
+        </div>
+      )}
       <div className="products">{productsArray}</div>
-      <Paginate handlePageClick={handlePageClick} />
+      {!isLoading && <Paginate handlePageClick={handlePageClick} />}
       <Footer />
     </>
   );

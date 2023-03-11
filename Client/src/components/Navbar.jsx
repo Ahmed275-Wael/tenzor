@@ -15,7 +15,7 @@ export default function Navbar() {
   }
 
   function logoutOnClick() {
-    localStorage.removeItem("user");
+    sessionStorage.removeItem("user");
     history.push("/");
     window.location.reload();
   }
@@ -54,7 +54,7 @@ export default function Navbar() {
               </ul>
             </div>
           </li>
-          {localStorage.getItem("user") && (
+          {sessionStorage.getItem("user") && (
             <li>
               <Link to="/upload">
                 Upload &nbsp;
@@ -68,14 +68,14 @@ export default function Navbar() {
         </ul>
       </div>
       <div className="bottom-nav">
-        {localStorage.getItem("user") && (
+        {sessionStorage.getItem("user") && (
           <div className="profile">
             <p onClick={profileClick}>
               Hello,{" "}
-              {JSON.parse(localStorage.getItem("user"))
+              {JSON.parse(sessionStorage.getItem("user"))
                 .firstName.charAt(0)
                 .toUpperCase() +
-                JSON.parse(localStorage.getItem("user")).firstName.slice(
+                JSON.parse(sessionStorage.getItem("user")).firstName.slice(
                   1
                 )}{" "}
               <i className="fa-solid fa-chevron-down fa-xs"></i>

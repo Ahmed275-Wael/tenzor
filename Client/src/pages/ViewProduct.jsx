@@ -16,6 +16,7 @@ export default function ViewProduct() {
       setImgDisplay((prevState) => !prevState);
     }
   }
+
   return (
     <>
       <Navbar />
