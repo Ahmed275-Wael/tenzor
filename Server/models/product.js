@@ -20,7 +20,8 @@ module.exports = (sequelize, DataTypes) => {
     price: DataTypes.FLOAT,
     image: DataTypes.STRING,
     userId:DataTypes.INTEGER(11),
-    methodOfPayment: DataTypes.BOOLEAN
+    methodOfPayment: DataTypes.BOOLEAN,
+    description:DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Product',

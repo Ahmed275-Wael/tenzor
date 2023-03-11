@@ -12,7 +12,8 @@ exports.createProduct = catchAsync(async (req, res, next) => {
          price: req.body.price,
          image: req.body.image,
          methodOfPay: req.body.methodOfPayment,
-         userId : req.body.userId
+         userId : req.body.userId,
+         description: req.body.description
         };
         const product = await  ProductModel.create(productData);
            // console.log(filteredUser);
@@ -31,7 +32,7 @@ exports.getProduct = catchAsync(async (req, res, next) => {
         });
         if (product) {
                 res.status(202).json({
-                    data : filteredUser,
+                    data : product,
                     status:"success"
                 })
         } else {
@@ -60,4 +61,31 @@ exports.getProduct = catchAsync(async (req, res, next) => {
             });
         }
  });
- 
+ exports.getProductsCount = catchAsync(async (req, res, next) => {
+
+    const productsCount = await  ProductModel.count({});
+    const data = {
+        count:productsCount
+    }
+    res.status(202).json({
+        data,
+        status:"success"
+    });
+ });
+
+
+ exports.getUserProducts = catchAsync(async (req, res, next) => {
+    const userId = req.params.userId;
+    const products = await  ProductModel.findAll({
+        where:{
+            userId:userId
+        }
+    });
+    const data = {
+        data:products
+    }
+    res.status(202).json({
+        data,
+        status:"success"
+    });
+ });

@@ -22,7 +22,7 @@ exports.createOrder = catchAsync(async (req, res, next) => {
     const orderProduct = await  orderProductModel.create(orderedProductData);
 
             res.status(202).json({
-                    orderInfo:orderData,
+                    data:orderData,
                   //  productInfo:orderedProductData.productId,
                     status:"success"
                 })
