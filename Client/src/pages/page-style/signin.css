@@ -1,0 +1,75 @@
+.sign-in {
+  height: calc(100vh - 118px);
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.sign-in .sign-up-img {
+  color: white;
+  padding: 0px 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 10px;
+  background-color: #2dc3bb;
+  height: 100%;
+  /* width: 50vw; */
+}
+.sign-in .sign-up-img h1 {
+  font-size: 40px;
+  font-weight: normal;
+  text-transform: uppercase;
+}
+.sign-in .sign-up-img a {
+  width: fit-content;
+  display: block;
+  font-family: "cera round";
+  color: white;
+  border: 1px solid white;
+  background-color: #2dc3bb;
+  font-size: 18px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.sign-in .sign-up-img a:hover {
+  color: #2dc3bb;
+  background-color: white;
+}
+.signin-form {
+  flex: 1;
+  height: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+}
+.signin-form h1 {
+  font-size: 50px;
+  font-weight: normal;
+  text-transform: uppercase;
+}
+.signin-form input {
+  width: 500px;
+  font-family: "cera round";
+  font-size: 15px;
+  padding: 10px;
+  background-color: aliceblue;
+  border: 1px solid #2dc3bb;
+}
+.signin-form button {
+  font-family: "cera round";
+  color: #2dc3bb;
+  border: 1px solid #2dc3bb;
+  background-color: white;
+  font-size: 18px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.signin-form button:hover {
+  color: white;
+  background-color: #2dc3bb;
+}

@@ -1,0 +1,28 @@
+.products {
+  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+  gap: 40px;
+}
+.intro-pic {
+  background-image: url("../../assets/images/products-img.png");
+  background-position: top;
+  background-size: cover;
+  background-repeat: no-repeat;
+  text-align: center;
+  height: 230px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.intro-pic h1 {
+  color: white;
+  font-weight: normal;
+  font-size: 50px;
+}
+.intro-pic p {
+  color: white;
+  font-weight: normal;
+  font-size: 25px;
+}
