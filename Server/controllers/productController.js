@@ -1,5 +1,6 @@
 //const order = require("../models/order");
 //const orderedProduct = require("../models/orderedProduct");
+const valid = require("../utilis/validTools");
 const QueryStringBuilder = require("../utilis/QueryStringBuilder");
 const Model = require("../models");
 const test = require("../test");
@@ -15,6 +16,7 @@ exports.createProduct = catchAsync(async (req, res, next) => {
          userId : req.body.userId,
          description: req.body.description
         };
+        console.log(req.body);
         const product = await  ProductModel.create(productData);
            // console.log(filteredUser);
             res.status(202).json({
@@ -57,17 +59,40 @@ exports.getProduct = catchAsync(async (req, res, next) => {
         } else {
             res.status(404).json({
                 status:"failed",
-                message:"No Products Are Avialable"
+                message:"No Products Are Available"
             });
         }
  });
+ exports.searchForProducts = catchAsync(async (req, res, next) => {  
+    const queryStringBulder = new QueryStringBuilder(req.query).paginate();
+    queryStringResult = queryStringBulder.result;
+    let isValid = true;
+    isValid = isValid && valid.validNumber(req.body.id) && valid.validWord(req.body.name);
+    console.log(valid.filter(req.body))
+    if (isValid){
+    const product = await  ProductModel.findAll({
+        limit:queryStringResult.limit, 
+        offset:queryStringResult.offset,
+        where : valid.filter(req.body)
+    });
+    }
+    
+        if (product) {
+                res.status(202).json({
+                    data : product,
+                    status:"success"
+                })
+        } else {
+            res.status(404).json({
+                status:"failed",
+                message:"No Products Are Avialable"
+            });
+            }
+    
+ });
  exports.getProductsCount = catchAsync(async (req, res, next) => {
 
-    const productsCount = await ProductModel.findOne({
-        where : {
-            id : 1 
-        }
-    });
+    const productsCount = await ProductModel.count({});
     const data = {
         count:productsCount
     }
@@ -89,7 +114,7 @@ exports.getProduct = catchAsync(async (req, res, next) => {
         data:products
     }
     res.status(202).json({
-        data,
+        products: data,
         status:"success"
     });
  });
