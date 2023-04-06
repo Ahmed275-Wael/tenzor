@@ -14,7 +14,7 @@ export default function Product(props) {
           {props.name} {props.id}
         </p>
         <p className="price">{props.price}</p>
-        <Link to="/products/5">View Product</Link>
+        <Link to={`/products/${props.id}`}>View Product</Link>
       </div>
     </div>
   );

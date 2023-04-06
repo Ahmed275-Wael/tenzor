@@ -11,8 +11,18 @@ export default function Products() {
   const [products, setProducts] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
   const totalNumberPerPage = 8;
+  const [productCount, setProductCount] = React.useState(0);
 
   React.useEffect(() => {
+    //Get the total amount of products to be used in pagination
+    const getProductsCount = async () => {
+      const res = await fetch(`http://localhost:3006/api/v1/product/count`);
+      const data = await res.json();
+      setProductCount(data.data.count);
+    };
+    getProductsCount();
+
+    //Get the actual products data
     const getProducts = async () => {
       const res = await fetch(
         `http://localhost:3006/api/v1/product?page=1&limit=${totalNumberPerPage}`
@@ -46,7 +56,6 @@ export default function Products() {
       price={product.price}
     />
   ));
-
   return (
     <>
       <Navbar />
@@ -60,7 +69,12 @@ export default function Products() {
         </div>
       )}
       <div className="products">{productsArray}</div>
-      {!isLoading && <Paginate handlePageClick={handlePageClick} />}
+      {!isLoading && (
+        <Paginate
+          productCount={Math.ceil(productCount / 8)}
+          handlePageClick={handlePageClick}
+        />
+      )}
       <Footer />
     </>
   );

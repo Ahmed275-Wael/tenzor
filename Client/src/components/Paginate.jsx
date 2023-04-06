@@ -8,7 +8,7 @@ export default function Paginate(props) {
       previousLabel={"<<"}
       nextLabel={">>"}
       breakLabel={"..."}
-      pageCount={15}
+      pageCount={props.productCount}
       marginPagesDisplayed={2}
       pageRangeDisplayed={3}
       onPageChange={props.handlePageClick}
