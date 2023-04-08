@@ -27,6 +27,13 @@
   background-color: aliceblue;
   border: 1px solid #2dc3bb;
 }
+.signup-form select {
+  font-family: "cera round";
+  font-size: 15px;
+  padding: 10px;
+  background-color: aliceblue;
+  border: 1px solid #2dc3bb;
+}
 .signup-form .name-inputs {
   width: 522px;
   display: flex;

@@ -1,0 +1,38 @@
+main.container {
+  padding: 20px 60px;
+  min-height: calc(85vh - 188px);
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+main .user-data {
+  width: 200px;
+}
+main .user-data .user-pic img {
+  width: 200px;
+  height: 200px;
+  border: 2px solid white;
+  border-radius: 50%;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+main .user-data .user-pic img {
+  width: 200px;
+  height: 200px;
+  border: 2px solid white;
+  border-radius: 50%;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+main .user-data {
+  padding: 30px;
+}
+main .user-data .user-data-content {
+  text-align: center;
+}
+main .user-data .user-data-content p {
+  font-size: 18px;
+  padding: 5px;
+}
+main .user-products {
+  padding: 20px;
+  border-left: 1px solid grey;
+}

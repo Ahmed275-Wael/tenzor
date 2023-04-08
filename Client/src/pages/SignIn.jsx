@@ -1,37 +1,24 @@
 import { React, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
+import { useForm } from "react-hook-form";
 import "./page-style/signin.css";
 import Navbar from "../components/Navbar";
 
 export default function SignIn() {
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   const history = useHistory();
-  //Error message display
+  //Error API message display
   const [statusError, setStatusError] = useState(false);
 
-  //// RegEx validations (yet to be implemented)
-  // const [emailErr, setEmailErr] = useState(false);
-  // const [passError, setPwdError] = useState(false);
-  // const validEmail = new RegExp(
-  //   "^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$"
-  // );
-  // const validPassword = new RegExp("^(?=.*?[A-Za-z])(?=.*?[0-9]).{6,}$");
-
-  function inputChange(event) {
-    const { name, value } = event.target;
-    setFormData((prevFormData) => {
-      return { ...prevFormData, [name]: value };
-    });
-  }
-
-  async function submitSignin(e) {
-    e.preventDefault();
+  //On submit function
+  const onSubmit = async (data) => {
     let result = await fetch("http://localhost:3006/api/v1/user", {
       method: "post",
-      body: JSON.stringify(formData),
+      body: JSON.stringify(data),
       headers: {
         "Content-Type": "application/json; charset=utf-8",
       },
@@ -47,7 +34,7 @@ export default function SignIn() {
         setStatusError((prevState) => !prevState);
       }, 3000);
     }
-  }
+  };
 
   return (
     <>
@@ -58,26 +45,35 @@ export default function SignIn() {
           <p>Sign up now and browse many phones</p>
           <Link to="/signup">Register</Link>
         </div>
-        <form className="signin-form">
+        <form className="signin-form" onSubmit={handleSubmit(onSubmit)}>
           <h1>Login to your account.</h1>
           <input
-            onChange={inputChange}
-            name="email"
-            type="text"
+            {...register("email", {
+              pattern: {
+                value: /^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$/,
+                message: "Entered value does not match email format",
+              },
+            })}
             placeholder="EMAIL"
-            value={formData.email}
           />
+          {errors.email && <p className="error">{errors.email.message}</p>}
           <input
-            onChange={inputChange}
-            name="password"
+            {...register("password", {
+              pattern: {
+                value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
+                //Minimum eight characters, at least one letter and one number
+                message:
+                  "Password must contain a minimum of eight characters, at least one letter and one number",
+              },
+            })}
             type="password"
             placeholder="PASSWORD"
-            value={formData.password}
           />
-          <button onClick={submitSignin}>Login</button>
-          <p style={{ color: "red" }}>
-            {statusError && "Invalid email or password"}
-          </p>
+          {errors.password && (
+            <p className="error">{errors.password.message}</p>
+          )}
+          <button onClick={handleSubmit}>Login</button>
+          <p className="error">{statusError && "Invalid email or password"}</p>
         </form>
       </div>
     </>

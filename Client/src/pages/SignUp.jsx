@@ -1,107 +1,96 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
 import "./page-style/signup.css";
 import Navbar from "../components/Navbar";
 
+//ERRORS BS HYA ELL FADLA HNA DELETE WHEN COMPLETED
+
 export default function SignUp() {
-  const [formData, setFormData] = React.useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    phoneNumber: "",
-    password: "",
-    confirmPassword: "",
-  });
+  const [errorMsg, setErrorMsg] = React.useState("");
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    watch,
+  } = useForm();
 
-  function inputChange(event) {
-    const { name, value } = event.target;
-    setFormData((prevFormData) => {
-      return { ...prevFormData, [name]: value };
-    });
-  }
-
-  async function submitSignup(e) {
-    e.preventDefault();
+  async function onSubmit(data) {
     let result = await fetch("http://localhost:3006/api/v1/user/register", {
       method: "post",
-      body: JSON.stringify({ ...formData, image: "culpa ea", gender: "male" }),
+      body: JSON.stringify({ data }),
       headers: {
         "Content-Type": "application/json; charset=utf-8",
       },
     });
     result = await result.json();
     console.log(result);
-    // if (result.status === "Success") {
-    //   localStorage.setItem("user", JSON.stringify(result.data));
-    //   history.push("/");
-    // } else if (result.status === "Failed") {
-    //   setStatusError((prevState) => !prevState);
-    //   setTimeout(() => {
-    //     setStatusError((prevState) => !prevState);
-    //   }, 3000);
-    // }
   }
 
   return (
     <>
       <Navbar />
       <div className="sign-up">
-        <form className="signup-form" action="">
+        <form className="signup-form" onSubmit={handleSubmit(onSubmit)}>
           <h1>Register a new account.</h1>
           <div className="name-inputs">
+            {/* comment */}
             <input
-              onChange={inputChange}
-              name="firstName"
+              {...register("firstName")}
               type="text"
-              placeholder="First Name"
-              value={formData.firstName}
+              placeholder="FIRST NAME"
             />
             <input
-              onChange={inputChange}
-              name="lastName"
+              {...register("lastName")}
               type="text"
-              placeholder="Last Name"
-              value={formData.lastName}
+              placeholder="LAST NAME"
             />
           </div>
+          <select {...register("gender")}>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+          </select>
           <input
-            onChange={inputChange}
-            name="email"
-            type="text"
+            {...register("email", {
+              pattern: {
+                value: /^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$/,
+                message: "Entered value does not match email format",
+              },
+            })}
             placeholder="EMAIL"
-            value={formData.email}
           />
+          {errors.email && <p className="error">{errors.email.message}</p>}
           <input
-            onChange={inputChange}
-            name="phoneNumber"
+            {...register("phoneNumber", {
+              pattern: {
+                value: /^01[0125][0-9]{8}$/gm,
+                message: "Entered value does not match egyptian number format",
+              },
+            })}
             type="text"
             placeholder="PHONE NUMBER"
-            value={formData.phoneNumber}
           />
           <input
-            onChange={inputChange}
-            name="password"
+            {...register("password")}
             type="password"
             placeholder="PASSWORD"
-            value={formData.password}
           />
           <input
-            onChange={inputChange}
-            name="confirmPassword"
+            input
+            {...register("confirm_password", {
+              required: true,
+              validate: (val) => {
+                if (watch("password") !== val) {
+                  setErrorMsg("Your passwords do no match");
+                } else setErrorMsg("");
+              },
+            })}
             type="password"
             placeholder="CONFIRM PASSWORD"
-            value={formData.confirmPassword}
           />
-          {/* <div className="form-gender">
-            <h1 className="form-gender-header">Gender</h1>
-            <div className="gender-radio">
-              <label htmlFor="male">Male</label>
-              <input type="radio" id="male" />
-              <label htmlFor="female">Female</label>
-              <input type="radio" id="female" />
-            </div>
-          </div> */}
-          <button onClick={submitSignup}>Resgiter</button>
+          {errorMsg}
+          <button onClick={handleSubmit}>Resgiter</button>
+          {/* comment */}
         </form>
         <div className="sign-in-img">
           <h1>Already registered?</h1>
