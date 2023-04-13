@@ -15,16 +15,19 @@ export default function SignUp() {
     watch,
   } = useForm();
 
-  async function onSubmit(data) {
-    let result = await fetch("http://localhost:3006/api/v1/user/register", {
-      method: "post",
-      body: JSON.stringify({ data }),
-      headers: {
-        "Content-Type": "application/json; charset=utf-8",
-      },
-    });
-    result = await result.json();
-    console.log(result);
+  function onSubmit(data) {
+    // const formData = new FormData();
+    // formData.append("file", data.file[0]);
+
+    // let response = await fetch("http://localhost:3006/api/v1/user/register", {
+    //   method: "post",
+    //   body: JSON.stringify(data),
+    //   headers: {
+    //     "Content-Type": "application/json; charset=utf-8",
+    //   },
+    // });
+    // const result = await response.json();
+    console.log(data);
   }
 
   return (
@@ -46,10 +49,13 @@ export default function SignUp() {
               placeholder="LAST NAME"
             />
           </div>
-          <select {...register("gender")}>
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-          </select>
+          <div className="gender-picture">
+            <select {...register("gender")}>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+            </select>
+            <input {...register("image")} type="file" />
+          </div>
           <input
             {...register("email", {
               pattern: {
@@ -58,6 +64,7 @@ export default function SignUp() {
               },
             })}
             placeholder="EMAIL"
+            accept="image/png, image/gif, image/jpeg"
           />
           {errors.email && <p className="error">{errors.email.message}</p>}
           <input
@@ -70,13 +77,25 @@ export default function SignUp() {
             type="text"
             placeholder="PHONE NUMBER"
           />
+          {errors.phoneNumber && (
+            <p className="error">{errors.phoneNumber.message}</p>
+          )}
           <input
-            {...register("password")}
+            {...register("password", {
+              pattern: {
+                value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
+                //Minimum eight characters, at least one letter and one number
+                message:
+                  "Password must contain a minimum of eight characters, at least one letter and one number",
+              },
+            })}
             type="password"
             placeholder="PASSWORD"
           />
+          {errors.password && (
+            <p className="error">{errors.password.message}</p>
+          )}
           <input
-            input
             {...register("confirm_password", {
               required: true,
               validate: (val) => {
@@ -88,7 +107,7 @@ export default function SignUp() {
             type="password"
             placeholder="CONFIRM PASSWORD"
           />
-          {errorMsg}
+          <p className="error">{errorMsg}</p>
           <button onClick={handleSubmit}>Resgiter</button>
           {/* comment */}
         </form>

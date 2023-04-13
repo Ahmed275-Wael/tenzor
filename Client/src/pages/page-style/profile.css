@@ -6,24 +6,24 @@ main.container {
   align-items: flex-start;
 }
 main .user-data {
-  width: 200px;
-}
-main .user-data .user-pic img {
-  width: 200px;
-  height: 200px;
-  border: 2px solid white;
-  border-radius: 50%;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-}
-main .user-data .user-pic img {
-  width: 200px;
-  height: 200px;
-  border: 2px solid white;
-  border-radius: 50%;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-}
-main .user-data {
+  text-align: center;
+  position: sticky;
+  top: 70px;
   padding: 30px;
+}
+main .user-data .user-pic img {
+  width: 200px;
+  height: 200px;
+  border: 2px solid white;
+  border-radius: 50%;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+main .user-data .user-pic img {
+  width: 200px;
+  height: 200px;
+  border: 2px solid white;
+  border-radius: 50%;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 main .user-data .user-data-content {
   text-align: center;

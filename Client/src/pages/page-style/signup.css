@@ -89,3 +89,15 @@
   font-weight: normal;
   text-transform: uppercase;
 }
+.gender-picture {
+  width: 521px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.gender-picture input {
+  width: 221px;
+}
+.gender-picture select {
+  width: 221px;
+}
