@@ -68,16 +68,15 @@ exports.getProduct = catchAsync(async (req, res, next) => {
     queryStringResult = queryStringBulder.result;
     let isValid = true;
     isValid = isValid && valid.validNumber(req.body.id) && valid.validWord(req.body.name);
-    console.log(valid.filter(req.body))
-    if (isValid){
+    console.log(valid.filter(req.body));
     const product = await  ProductModel.findAll({
         limit:queryStringResult.limit, 
         offset:queryStringResult.offset,
         where : valid.filter(req.body)
     });
-    }
     
-        if (product) {
+    console.log(isValid);
+        if (isValid && product) {
                 res.status(202).json({
                     data : product,
                     status:"success"
@@ -92,7 +91,7 @@ exports.getProduct = catchAsync(async (req, res, next) => {
  });
  exports.getProductsCount = catchAsync(async (req, res, next) => {
 
-    const productsCount = await ProductModel.count({});
+    const productsCount = await  ProductModel.count({});
     const data = {
         count:productsCount
     }
@@ -101,7 +100,6 @@ exports.getProduct = catchAsync(async (req, res, next) => {
         status:"success"
     });
  });
-
 
  exports.getUserProducts = catchAsync(async (req, res, next) => {
     const userId = req.params.userId;

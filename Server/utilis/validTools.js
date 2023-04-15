@@ -15,6 +15,6 @@ exports.filter = function filter(reqBody) {
     return reg.test(id);
  }
  exports.validWord = function validWord(string) {
-    return /^[a-zA-Z]+$/.test(string) && /\\s/g.test(string);
+    return /^[A-Za-z]+$/.test(string);
  }
 
