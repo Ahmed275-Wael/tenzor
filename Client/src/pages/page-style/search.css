@@ -1,0 +1,16 @@
+.container {
+  padding: 20px;
+}
+.products {
+  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+  gap: 40px;
+}
+h1 {
+  font-weight: normal;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
+}

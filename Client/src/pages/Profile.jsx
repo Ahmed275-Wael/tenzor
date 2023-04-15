@@ -18,7 +18,8 @@ export default function Profile() {
         `http://localhost:3006/api/v1/user/${userData.id}/products`
       );
       const data = await res.json();
-      setUserProducts(data.data.data);
+      // console.log();
+      setUserProducts(data.products.data);
     };
     getProductsCount();
   }, [userData.id]);

@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import "./page-style/signup.css";
 import Navbar from "../components/Navbar";
@@ -7,6 +7,8 @@ import Navbar from "../components/Navbar";
 //ERRORS BS HYA ELL FADLA HNA DELETE WHEN COMPLETED
 
 export default function SignUp() {
+  const history = useHistory();
+
   const [errorMsg, setErrorMsg] = React.useState("");
   const [emailExistsErr, setEmailExistsErr] = React.useState("");
   const {
@@ -26,8 +28,13 @@ export default function SignUp() {
     });
     const result = await response.json();
     console.log(result);
-    if (result.errors[0].message === "email must be unique") {
-      setEmailExistsErr("This email is already registered.");
+    if (result.errors !== undefined) {
+      if (result.errors[0].message === "email must be unique") {
+        setEmailExistsErr("This email is already registered.");
+      }
+    } else if (result.status === "sucess") {
+      sessionStorage.setItem("user", JSON.stringify(result.data));
+      history.push("/");
     }
   }
 
@@ -38,7 +45,6 @@ export default function SignUp() {
         <form className="signup-form" onSubmit={handleSubmit(onSubmit)}>
           <h1>Register a new account.</h1>
           <div className="name-inputs">
-            {/* comment */}
             <input
               {...register("firstName", {
                 required: {

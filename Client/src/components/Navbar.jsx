@@ -9,16 +9,7 @@ export default function Navbar() {
   const [toggleProfile, setToggleProfile] = useState(false);
   const { register, handleSubmit } = useForm();
 
-  async function onSubmit(data) {
-    // let response = await fetch("http://localhost:3006/api/v1/product/search", {
-    //   method: "post",
-    //   body: JSON.stringify(data),
-    //   headers: {
-    //     "Content-Type": "application/json; charset=utf-8",
-    //   },
-    // });
-    // const result = await response.json();
-    // console.log(result);
+  function onSubmit(data) {
     history.push("/search", {
       data,
     });

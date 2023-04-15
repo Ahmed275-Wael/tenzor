@@ -26,14 +26,14 @@ export default function UploadProd() {
         methodOfPayment: 0,
         discount: 0,
         userId: userData.id,
-        image: "mazona",
+        image: "",
       }),
       headers: {
         "Content-Type": "application/json; charset=utf-8",
       },
     });
     const result = await response.json();
-    console.log(result.status);
+    console.log(result);
     if (result.status === "success") {
       history.push("/");
     }
