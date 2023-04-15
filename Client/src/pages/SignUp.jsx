@@ -8,6 +8,7 @@ import Navbar from "../components/Navbar";
 
 export default function SignUp() {
   const [errorMsg, setErrorMsg] = React.useState("");
+  const [emailExistsErr, setEmailExistsErr] = React.useState("");
   const {
     register,
     handleSubmit,
@@ -15,19 +16,19 @@ export default function SignUp() {
     watch,
   } = useForm();
 
-  function onSubmit(data) {
-    // const formData = new FormData();
-    // formData.append("file", data.file[0]);
-
-    // let response = await fetch("http://localhost:3006/api/v1/user/register", {
-    //   method: "post",
-    //   body: JSON.stringify(data),
-    //   headers: {
-    //     "Content-Type": "application/json; charset=utf-8",
-    //   },
-    // });
-    // const result = await response.json();
-    console.log(data);
+  async function onSubmit(data) {
+    let response = await fetch("http://localhost:3006/api/v1/user/register", {
+      method: "post",
+      body: JSON.stringify({ ...data, image: "" }),
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+      },
+    });
+    const result = await response.json();
+    console.log(result);
+    if (result.errors[0].message === "email must be unique") {
+      setEmailExistsErr("This email is already registered.");
+    }
   }
 
   return (
@@ -39,16 +40,32 @@ export default function SignUp() {
           <div className="name-inputs">
             {/* comment */}
             <input
-              {...register("firstName")}
+              {...register("firstName", {
+                required: {
+                  value: true,
+                  message: "2ool esmak y s7by",
+                },
+              })}
               type="text"
               placeholder="FIRST NAME"
             />
             <input
-              {...register("lastName")}
+              {...register("lastName", {
+                required: {
+                  value: true,
+                  message: "wenabi esm abook kman",
+                },
+              })}
               type="text"
               placeholder="LAST NAME"
             />
           </div>
+          {errors.firstName && (
+            <p className="error">{errors.firstName.message}</p>
+          )}
+          {errors.lastName && (
+            <p className="error">{errors.lastName.message}</p>
+          )}
           <div className="gender-picture">
             <select {...register("gender")}>
               <option value="male">Male</option>
@@ -61,6 +78,10 @@ export default function SignUp() {
               pattern: {
                 value: /^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$/,
                 message: "Entered value does not match email format",
+              },
+              required: {
+                value: true,
+                message: "Your email is reqiured to sign up",
               },
             })}
             placeholder="EMAIL"
@@ -109,6 +130,7 @@ export default function SignUp() {
           />
           <p className="error">{errorMsg}</p>
           <button onClick={handleSubmit}>Resgiter</button>
+          <p className="error">{emailExistsErr}</p>
           {/* comment */}
         </form>
         <div className="sign-in-img">

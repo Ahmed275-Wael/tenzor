@@ -1,11 +1,28 @@
 import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
+import { useForm } from "react-hook-form";
 import "./styles/navbar.css";
 
 export default function Navbar() {
+  let history = useHistory();
   const [toggleAccount, setToggleAccount] = useState(false);
   const [toggleProfile, setToggleProfile] = useState(false);
-  let history = useHistory();
+  const { register, handleSubmit } = useForm();
+
+  async function onSubmit(data) {
+    // let response = await fetch("http://localhost:3006/api/v1/product/search", {
+    //   method: "post",
+    //   body: JSON.stringify(data),
+    //   headers: {
+    //     "Content-Type": "application/json; charset=utf-8",
+    //   },
+    // });
+    // const result = await response.json();
+    // console.log(result);
+    history.push("/search", {
+      data,
+    });
+  }
 
   function accClick() {
     setToggleAccount((prevState) => !prevState);
@@ -93,11 +110,16 @@ export default function Navbar() {
             </ul>
           </div>
         )}
-        <form action="">
+        <form action="" onSubmit={handleSubmit(onSubmit)}>
           <label htmlFor="search-bar">
             <i className="fa-solid fa-magnifying-glass"></i>
           </label>
-          <input id="search-bar" type="text" placeholder="Search" />
+          <input
+            {...register("name")}
+            id="search-bar"
+            type="text"
+            placeholder="Search"
+          />
           <button type="submit">Search</button>
         </form>
       </div>

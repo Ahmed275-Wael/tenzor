@@ -10,6 +10,7 @@ import Contact from "./pages/Contact";
 import Profile from "./pages/Profile";
 import UploadProd from "./pages/UploadProd";
 import PageNotFound from "./pages/PageNotFound";
+import Search from "./pages/Search";
 
 function App() {
   return (
@@ -39,6 +40,9 @@ function App() {
           </Route>
           <Route exact path="/upload">
             <UploadProd />
+          </Route>
+          <Route exact path="/search">
+            <Search />
           </Route>
           <Route path="*">
             <PageNotFound />

@@ -7,7 +7,10 @@ import UserProducts from "../components/UserProduct";
 
 export default function Profile() {
   const [userProducts, setUserProducts] = React.useState([]);
+
+  //Get user data signed in from session storage
   const userData = JSON.parse(sessionStorage.getItem("user"));
+
   //Get the user's products to be shown in profile page
   React.useEffect(() => {
     const getProductsCount = async () => {
