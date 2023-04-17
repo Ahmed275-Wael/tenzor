@@ -41,7 +41,7 @@ function App() {
           <Route exact path="/upload">
             <UploadProd />
           </Route>
-          <Route exact path="/search">
+          <Route exact path="/search=:prdName">
             <Search />
           </Route>
           <Route path="*">

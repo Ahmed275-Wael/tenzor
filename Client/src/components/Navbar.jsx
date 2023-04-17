@@ -10,9 +10,7 @@ export default function Navbar() {
   const { register, handleSubmit } = useForm();
 
   function onSubmit(data) {
-    history.push("/search", {
-      data,
-    });
+    history.push(`/search=${data.name}`);
   }
 
   function accClick() {

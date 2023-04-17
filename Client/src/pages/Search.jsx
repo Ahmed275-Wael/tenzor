@@ -1,29 +1,38 @@
 import React, { useEffect } from "react";
 import "./page-style/search.css";
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Product from "../components/Product";
+import ProductSkeleton from "../components/ProductSkeleton";
 
 export default function Search() {
-  const { state } = useLocation();
+  let { prdName } = useParams();
+  const [isLoading, setIsLoading] = React.useState(true);
   const [products, setProducts] = React.useState([]);
+  const [searchErr, setSearchErr] = React.useState(false);
 
   // Get searched product
   useEffect(() => {
     const getProducts = async () => {
       const res = await fetch(`http://localhost:3006/api/v1/product/search`, {
         method: "post",
-        body: JSON.stringify({ name: state.data.name }),
+        body: JSON.stringify({ name: prdName }),
         headers: {
           "Content-Type": "application/json; charset=utf-8",
         },
       });
       const data = await res.json();
       setProducts(data.data);
+      if (data.data.length === 0) {
+        setSearchErr(true);
+      } else {
+        setSearchErr(false);
+      }
+      setIsLoading(false);
     };
     getProducts();
-  });
+  }, [prdName]);
 
   const productsArray = products.map((product) => (
     <Product
@@ -37,7 +46,17 @@ export default function Search() {
     <>
       <Navbar />
       <div className="container">
-        <h1>You searched for {state.data.name}</h1>
+        {searchErr ? (
+          <h1>No results for {prdName}</h1>
+        ) : (
+          <h1>You searched for {prdName}</h1>
+        )}
+
+        {isLoading && (
+          <div className="products">
+            <ProductSkeleton />
+          </div>
+        )}
         <div className="products">{productsArray}</div>
       </div>
       <Footer />
