@@ -26,3 +26,25 @@
   font-weight: normal;
   font-size: 25px;
 }
+
+@media (max-width: 767px) {
+  .intro-pic {
+    padding: 100px 30px 10px 30px;
+    background-position: center;
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .intro-pic h1 {
+    color: white;
+    font-weight: normal;
+    font-size: 30px;
+  }
+  .intro-pic p {
+    color: white;
+    font-weight: normal;
+    font-size: 15px;
+  }
+}

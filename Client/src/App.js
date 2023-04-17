@@ -1,7 +1,7 @@
 import "./App.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { SkeletonTheme } from "react-loading-skeleton";
-import Main from "./pages/Main";
+import Home from "./pages/Home";
 import Products from "./pages/Products";
 import ViewProduct from "./pages/ViewProduct";
 import SignIn from "./pages/SignIn";
@@ -18,7 +18,7 @@ function App() {
       <Router>
         <Switch>
           <Route exact path="/">
-            <Main />
+            <Home />
           </Route>
           <Route exact path="/products">
             <Products />
