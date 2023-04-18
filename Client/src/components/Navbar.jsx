@@ -169,7 +169,7 @@ export default function Navbar() {
         {sessionStorage.getItem("user") && (
           <div className="profile">
             <p onClick={profileClick}>
-              Hello,
+              Hello,{" "}
               {JSON.parse(sessionStorage.getItem("user"))
                 .firstName.charAt(0)
                 .toUpperCase() +

@@ -15,4 +15,15 @@
   font-size: 40px;
   text-transform: uppercase;
   padding: 30px;
+  text-align: center;
+}
+@media (max-width: 767px) {
+  .err404 {
+    height: 75vh;
+    background-size: 300px;
+    background-position: center;
+  }
+  .pagenotfound-text {
+    font-size: 30px;
+  }
 }

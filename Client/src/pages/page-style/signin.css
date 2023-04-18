@@ -6,7 +6,7 @@
 }
 .sign-in .sign-up-img {
   color: white;
-  padding: 0px 200px;
+  padding: 0px 100px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -14,7 +14,7 @@
   gap: 10px;
   background-color: #2dc3bb;
   height: 100%;
-  /* width: 50vw; */
+  max-width: 100%;
 }
 .sign-in .sign-up-img h1 {
   font-size: 40px;
@@ -75,4 +75,55 @@
 }
 .error {
   color: red;
+}
+@media (max-width: 767px) {
+  .sign-in {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
+  .sign-in form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding-top: 100px;
+    flex-grow: 1;
+  }
+  .sign-in form h1 {
+    text-align: center;
+    font-size: 30px;
+    margin: 0;
+  }
+  .sign-in form input {
+    width: 300px;
+  }
+  .sign-in .sign-up-img {
+    background-color: #2dc3bb;
+    height: 200px;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 0;
+  }
+}
+@media (max-width: 1160px) {
+  .sign-in {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: center;
+    align-items: center;
+  }
+  .sign-in .sign-up-img {
+    background-color: #2dc3bb;
+    height: 30%;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 0;
+  }
+  .sign-in .sign-up-img h1 {
+    margin: 0;
+  }
 }

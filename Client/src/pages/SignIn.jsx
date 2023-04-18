@@ -24,7 +24,6 @@ export default function SignIn() {
       },
     });
     result = await result.json();
-    console.log(result);
     if (result.status === "Sucess") {
       sessionStorage.setItem("user", JSON.stringify(result.data));
       history.push("/");

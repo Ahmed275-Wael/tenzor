@@ -101,3 +101,72 @@
 .gender-picture select {
   width: 221px;
 }
+@media (max-width: 767px) {
+  .sign-up {
+    display: flex;
+    flex-direction: column;
+    height: fit-content;
+  }
+  .sign-up .signup-form {
+    width: fit-content;
+  }
+  .sign-up .signup-form h1 {
+    text-align: center;
+    padding: 80px 0 0 0;
+  }
+  .sign-up .signup-form .name-inputs {
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .sign-up .signup-form .gender-picture {
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .sign-up .signup-form input {
+    width: 300px;
+  }
+  .sign-up .signup-form select {
+    width: 320px;
+  }
+  .sign-up .sign-in-img {
+    background-color: #2dc3bb;
+    height: 200px;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 100px 0;
+  }
+}
+@media (max-width: 1160px) {
+  .sign-up {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .sign-up .signup-form {
+    padding: 20px;
+    gap: 10px;
+    height: fit-content;
+  }
+  .sign-up .signup-form h1 {
+    padding: 100px 0 0 0;
+    font-size: 40px;
+  }
+  .sign-up .sign-in-img {
+    background-color: #2dc3bb;
+    height: 30%;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 30px 0;
+  }
+  .sign-up .sign-in-img h1 {
+    font-size: 30px;
+    margin: 0;
+  }
+}
