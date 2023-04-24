@@ -51,3 +51,44 @@
     transform: translateY(0px);
   }
 }
+@media (max-width: 767px) {
+  .landing {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .landing .content {
+    line-height: 1;
+    padding-bottom: 0;
+    color: #2dc3bb;
+    text-align: center;
+  }
+  .landing .content p {
+    font-size: 20px;
+  }
+  .landing .content h1 {
+    letter-spacing: -5px;
+    font-family: "cera round";
+    font-size: 100px;
+    font-weight: bold;
+  }
+  .landing .phone-imgs {
+    display: none;
+  }
+}
+@media (max-width: 1280px) {
+  .landing .phone-imgs {
+    display: none;
+  }
+  .landing {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .landing .content {
+    line-height: 1;
+    padding-bottom: 0;
+    color: #2dc3bb;
+    text-align: center;
+  }
+}
