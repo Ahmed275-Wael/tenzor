@@ -1,17 +1,53 @@
-/* .landing {
+.landing {
   height: calc(100vh - 118px);
+  background-image: url("../../assets/images/background/landing.png");
+  background-size: cover;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 0 200px;
 }
 
 .landing .content {
-  margin-left: 200px;
   line-height: 1;
+  padding-bottom: 200px;
+  color: #2dc3bb;
+}
+.landing .content p {
+  font-size: 25px;
 }
 .landing .content h1 {
   letter-spacing: -5px;
   font-family: "cera round";
   font-size: 150px;
   font-weight: bold;
-} */
+}
+.landing .phone-imgs {
+  align-self: flex-end;
+}
+#phone1,
+#phone2 {
+  width: 220px;
+}
+#phone1 {
+  animation: phone-animation1 2s ease-in-out 2s infinite alternate-reverse;
+}
+#phone2 {
+  animation: phone-animation2 2s ease-in-out 2s infinite alternate-reverse;
+}
+@keyframes phone-animation1 {
+  from {
+    transform: translateY(-20px);
+  }
+  to {
+    transform: translateY(0px);
+  }
+}
+@keyframes phone-animation2 {
+  from {
+    transform: translateY(-50px);
+  }
+  to {
+    transform: translateY(0px);
+  }
+}
